@@ -231,8 +231,8 @@ namespace Xmi2Stm.Model
                 if (IsFrameState)
                 {
                     // ShowFrame指示ソースコードの生成
-                    string screenName = "Pixstock.Applus.Containers." + this.TinyName;
-                    frameStateCode = $"	await UIDispatcher.InvokeAsync(() => ShowFrame(\"{screenName}\",ribbonMenuEventId));";
+                    string screenName = this.TinyName;
+                    frameStateCode = $"	ShowFrame(\"{screenName}\",ribbonMenuEventId));";
                 }
 
                 if (!string.IsNullOrEmpty(this.EntryMethod))
@@ -274,7 +274,9 @@ namespace Xmi2Stm.Model
                 string frameStateCode = "";
                 if (IsFrameState)
                 {
-                    frameStateCode = $"	await UIDispatcher.InvokeAsync(() => HideFrame(ribbonMenuEventId));";
+                    // HideFrame指示ソースコードの生成
+                    string screenName = this.TinyName;
+                    frameStateCode = $"	HideFrame(\"{screenName}\", ribbonMenuEventId));";
                 }
 
                 if (!string.IsNullOrEmpty(this.ExitMethod))

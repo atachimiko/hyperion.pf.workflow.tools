@@ -33,9 +33,14 @@ namespace Xmi2Stm
     class Program
     {
         /// <summary>
-		/// ステートマシンの全ての状態一覧（開始疑似状態を含む）
-		/// </summary>
-		static List<State> AllStateList = new List<State>();
+        /// メッセージ／イベント定義クラスの名前空間
+        /// </summary>
+        const string DeclareDefineCodeNamespace = "Pixstock.Core"; // TODO: 外部からの設定方法がないため、とりあえずハードコーディングしておく
+
+        /// <summary>
+        /// ステートマシンの全ての状態一覧（開始疑似状態を含む）
+        /// </summary>
+        static List<State> AllStateList = new List<State>();
 
         /// <summary>
         /// 
@@ -307,13 +312,14 @@ using Appccelerate.StateMachine.Reports;
                 {
                     sw.WriteLine(@"using System;
 using Hyperion.Pf.Workflow;
+using Hyperion.Pf.Workflow.StateMachine;
 using Appccelerate.StateMachine;
 using Appccelerate.StateMachine.Infrastructure;
 using Appccelerate.StateMachine.Machine;
 using Appccelerate.StateMachine.Persistence;
 using Appccelerate.StateMachine.Reports;");
 
-                    sw.WriteLine("namespace Pixstock.Core {");
+                    sw.WriteLine("namespace " + DeclareDefineCodeNamespace + " {");
 
                     // クラスリストの出力
                     Array.ForEach<NormalState>(AllStateList.Where(prop => prop is NormalState).Cast<NormalState>().GroupBy(prop => prop.Name).Select(g => g.First()).ToArray(), prop => prop.ExportClass(sw));
